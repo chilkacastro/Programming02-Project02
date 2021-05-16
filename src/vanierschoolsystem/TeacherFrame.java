@@ -34,15 +34,15 @@ import java.io.Serializable;
  * @author Chilka Castro
  */
 public class TeacherFrame extends javax.swing.JFrame implements Serializable {
-    private User user;
+    private Teacher teacher;
     
     /**
      * Creates new form TeacherFrame
      */
-    public TeacherFrame(User user) {
+    public TeacherFrame(Teacher teacher) {
         initComponents();
-        this.user = user;
-        welcomeL.setText(String.format("Welcome, %s", user.fname));
+        this.teacher = teacher;
+        welcomeL.setText(String.format("Welcome, %s", teacher.fname));
         VanierSchoolSystem.initData();
     }
 
@@ -258,36 +258,49 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
      */
     private void addBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBActionPerformed
         String courseName = courseTF.getText();
-        String studentFname = studentTF.getName();
-        Teacher teacher = (Teacher) user;
-        boolean courseValid = false;
-        int choice = 3;
+        String studentFname = studentTF.getText();
+        int idx = 0;
+        boolean validName = false;
+        Double grade = null;
         try {
-            Double score = Double.parseDouble(String.format("%s", scoreTF.getText()));
-
-            for (Course course : VanierSchoolSystem.courses) {
-                if (course.getCourseName().equalsIgnoreCase(courseName)) {
-                    choice = course.addScore(teacher, score, courseName);
-
-                    if (choice == 1) {
-                        addStatusMsgL.setForeground(Color.GREEN);
-                        addStatusMsgL.setText("The score is added successfully"); 
+            grade = Double.parseDouble(String.format("%s", scoreTF.getText()));
+        }
+        catch (NumberFormatException e){
+        }
+        // Check the courses at Vanier School System
+        for (Course course : VanierSchoolSystem.courses) {
+            if (course.getCourseName().equalsIgnoreCase(courseName)) {
+                // Check if teacher exist
+                if (!teacher.userId.equals(course.getTeacher().userId)) {
+                    addStatusMsgL.setForeground(Color.RED);
+                    addStatusMsgL.setText("You do not teach this course");
+                }
+                if (teacher.userId.equals(course.getTeacher().userId)) {
+                    for (Student student : course.getRegsStudents()) 
+                        if (student.fname.equalsIgnoreCase(studentFname)) {
+                            try {
+                                idx = course.getRegsStudents().indexOf(student);
+                                course.getFinalScores().set(idx, grade);
+                                int studentIdx = student.getRegCourses().indexOf(course);
+                            }
+                            catch (Exception e) {
+                                System.out.println(e);
+                                System.out.println(e.getMessage());
+                                System.out.println(e.getStackTrace()); 
+                            }
+                            addStatusMsgL.setForeground(Color.GREEN);
+                            addStatusMsgL.setText("The grade has been added successfully");
+                            validName = true;
+                            VanierSchoolSystem.serializeAllData();
+                            break;
+                        }
                     }
-                    if (choice == 2) {
+                    if (!validName) {
                         addStatusMsgL.setForeground(Color.RED);
                         addStatusMsgL.setText("The student has not registered this course");
-                    }
-                    courseValid = true;
-                }   break;
+                }
             }
-            if (!courseValid || choice == 3) {
-                addStatusMsgL.setForeground(Color.RED);
-                addStatusMsgL.setText("You do not teach this course");
-            }
-        }
-        catch (NumberFormatException e) {
-            System.out.println("sup");
-        }
+        } 
     }//GEN-LAST:event_addBActionPerformed
 
     /**
@@ -297,16 +310,18 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
     private void displayBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayBActionPerformed
         String str = "";
         String courseName = courseTF.getText();
-        Teacher teacher = (Teacher)user;
         
-        for (Course course: teacher.getTeachingCourses()) {
-            if (course.getCourseName().equalsIgnoreCase(courseName)) {
-                for (Student student : course.getRegsStudents()) {
-                    int idx = course.getRegsStudents().indexOf(student);
-                    Double grade = course.getFinalScores().get(idx);
-                    str += String.format("%s %s:", "Grade", grade);
+        for (Course course : VanierSchoolSystem.courses) {
+            if (course.getCourseName().equalsIgnoreCase(courseName))
+                for (int i = 0; i < course.getRegsStudents().size(); i++) {
+                    str += String.format("%s", course.getRegsStudents().get(i).fname);
+                    try {
+                        str += String.format("%.1f", course.getFinalScores().get(i));
+                    }
+                    catch (IndexOutOfBoundsException e) {
+                       str += String.format("%s\n", "null"); 
+                    }
                 }
-            }
         }
         displayTA.setText(str);
     }//GEN-LAST:event_displayBActionPerformed
@@ -330,7 +345,6 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
                 // Step 4 : Create Header
                 str += String.format("%s,%s,%s", "Student ID", "Student Name", "Final Grade");
                 // Step 5 : Create the body
-                Teacher teacher = (Teacher) user;
                 for (Course teachingCourse : teacher.getTeachingCourses()) 
                     if (teachingCourse.getCourseName().equalsIgnoreCase(inputCourseName)) 
                         for (Student student : teachingCourse.getRegsStudents()) {

@@ -77,7 +77,7 @@ public class Student extends User implements Serializable {
                     // Student registers successfully
                     if (studentCount < course.getMaxStudent() && studentCount >= 0) {
                         course.getRegsStudents().add(this);
-                        this.regCourses.add(course);
+                        regCourses.add(course);
                         VanierSchoolSystem.serializeAllData();
                         return 3; 
                     }       

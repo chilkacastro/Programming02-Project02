@@ -32,17 +32,17 @@ import java.io.Serializable;
  * @author Chilka Castro
  */
 public class StudentFrame extends javax.swing.JFrame implements Serializable{
-    private User user;
+    private Student student;
         
     /**
      * StudentFrame constructor with a user data member
      * @param user the user
      */
-    public StudentFrame(User user) {
+    public StudentFrame(Student student) {
         initComponents();
         displayTA.setFocusable(false);
-        this.user = user;
-        welcomeL.setText(String.format("Welcome, %s", user.fname));
+        this.student = student;
+        welcomeL.setText(String.format("Welcome, %s", student.fname));
     }
 
     /**
@@ -279,30 +279,29 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
      */
     private void registerBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBActionPerformed
         String inputCourseName = courseTF.getText();        
-        if (user instanceof Student ) {
-            int choice = ((Student)user).registerCourse(inputCourseName);
+        int choice = student.registerCourse(inputCourseName);
 
-            if (choice == 1) {
-                msgL.setForeground(Color.RED);
-                msgL.setText("You have registered this course already.");
-            }
-            
-            if (choice == 2) {    
-                msgL.setForeground(Color.RED);
-                msgL.setText("The course is already full");
-            }
-
-            if (choice == 3) {
-                msgL.setForeground(Color.GREEN);
-                msgL.setText("Course registered successfully");
-                VanierSchoolSystem.serializeAllData();
-            } 
-
-            if (choice == 4) {
-                msgL.setForeground(Color.RED);
-                msgL.setText("The course does not exist");
-            }
+        if (choice == 1) {
+            msgL.setForeground(Color.RED);
+            msgL.setText("You have registered this course already.");
         }
+
+        if (choice == 2) {    
+            msgL.setForeground(Color.RED);
+            msgL.setText("The course is already full");
+        }
+
+        if (choice == 3) {
+            msgL.setForeground(Color.GREEN);
+            msgL.setText("Course registered successfully");
+            VanierSchoolSystem.serializeAllData();
+        } 
+
+        if (choice == 4) {
+            msgL.setForeground(Color.RED);
+            msgL.setText("The course does not exist");
+        }
+        
     }//GEN-LAST:event_registerBActionPerformed
     
     /**
@@ -318,20 +317,23 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
      */
     public void displayScore() {
         String str = "";
-        if (user instanceof Student) {
-            Student student = (Student) user;
-            for (Course course : student.getRegCourses()) {
-                str += String.format("%s :", course.getCourseName());
-                int idx = course.getRegsStudents().indexOf(student);
+        int idx = 0;
+        
+        for (Course schoolCourse : VanierSchoolSystem.courses) {
+            if (schoolCourse.getRegsStudents().contains(student))
+                str += String.format("%s :", schoolCourse.getCourseName());
+                idx = schoolCourse.getRegsStudents().indexOf(student);  
+            
+
                 try {
-                Double grade = course.getFinalScores().get(idx);
-                str += String.format("%s\n", grade);
+                    Double grade = schoolCourse.getFinalScores().get(idx);
+                    str += String.format("%s\n", grade);
                 }
                 catch (IndexOutOfBoundsException e) {
                     str += String.format("%s\n", "null");
                 }
-            }
         }
+        
         displayTA.setText(str);
     }
         

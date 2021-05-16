@@ -33,17 +33,17 @@ import javax.swing.ImageIcon;
  * @author Chilka Castro
  */
 public class AdminFrame extends javax.swing.JFrame implements Serializable{
-    private User user;
+    private Admin admin;
     
     /**
      * Creates new form AdminFrame
      */
-    public AdminFrame(User user) {
+    public AdminFrame(Admin admin) {
         initComponents();
-        this.user = user;
+        this.admin = admin;
         ImageIcon adminImg = new ImageIcon("imgs\\admin.png");
         imgL.setIcon(adminImg);
-        welcomeL.setText(String.format("Welcome, %s", user.fname));
+        welcomeL.setText(String.format("Welcome, %s", admin.fname));
         teacherTF.setVisible(false);        
         teacherL.setVisible(false);
         displayWindowTA.setFocusable(false);
@@ -329,51 +329,49 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
         String input = nameTF.getText();
         String teacherUserId = teacherTF.getText();
         boolean teacherValid = false;
-        if (user instanceof Admin) {
-            // Step 1 : Check if teacher exist
-            for (Teacher existTeacher : VanierSchoolSystem.teachers) 
-                if (existTeacher.userId.equalsIgnoreCase(teacherUserId)) {
-                    teacherValid = true;
-                    Course course;
-                    course = new Course(input, existTeacher);
-                    // The teacher also gets that course in his/her list of courses
-                    existTeacher.updateCourse(course);
-                    // Adds the specific course to the Vanier School System
-                    VanierSchoolSystem.addCourse(course);
-                    addMsgL.setForeground(Color.GREEN);
-                    addMsgL.setText("Course successfully added");
-                }        
-            if (!teacherValid) {
-                addMsgL.setForeground(Color.RED);
-                addMsgL.setText("The teacher does not exist.");
-            }  
-        }    
+        // Step 1 : Check if teacher exist
+        for (Teacher existTeacher : VanierSchoolSystem.teachers) 
+            if (existTeacher.userId.equalsIgnoreCase(teacherUserId)) {
+                teacherValid = true;
+                Course course;
+                course = new Course(input, existTeacher);
+                // The teacher also gets that course in his/her list of courses
+                existTeacher.updateCourse(course);
+                // Adds the specific course to the Vanier School System
+                VanierSchoolSystem.addCourse(course);
+                addMsgL.setForeground(Color.GREEN);
+                addMsgL.setText("Course successfully added");
+            }        
+        if (!teacherValid) {
+            addMsgL.setForeground(Color.RED);
+            addMsgL.setText("The teacher does not exist.");
+        }  
+           
     }
 
     /**
      * Adds a student in the school system
      */
     public void addStudent() {
-        if (user instanceof Admin) {
-            try { 
-                String input = nameTF.getText();
-                int spaceIdx = input.indexOf(' ');
-                String fname = input.substring(0, spaceIdx);
-                String lname = input.substring(spaceIdx + 1); 
+        try { 
+            String input = nameTF.getText();
+            int spaceIdx = input.indexOf(' ');
+            String fname = input.substring(0, spaceIdx);
+            String lname = input.substring(spaceIdx + 1); 
 
-                // Create a student
-                Student student = new Student(fname, lname);
-                // Add student to system
-                VanierSchoolSystem.addStudent(student);
-            }
-            catch (StringIndexOutOfBoundsException e) {
-                addMsgL.setForeground(Color.RED);
-                addMsgL.setText("Adding student failed");
-            }
-            addMsgL.setForeground(Color.GREEN);
-            addMsgL.setText("Student successfully added");
-            setVisibility();
+            // Create a student
+            Student student = new Student(fname, lname);
+            // Add student to system
+            VanierSchoolSystem.addStudent(student);
         }
+        catch (StringIndexOutOfBoundsException e) {
+            addMsgL.setForeground(Color.RED);
+            addMsgL.setText("Adding student failed");
+        }
+        addMsgL.setForeground(Color.GREEN);
+        addMsgL.setText("Student successfully added");
+        setVisibility();
+    
     }
     
     /**
@@ -382,51 +380,55 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
      * @param evt the event
      */
     private void displayBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayBActionPerformed
-        if (user instanceof Admin) {
-            String str = "";
-            // When Student Radio Button is picked
-            if (studentRB.isSelected()) {
-                str += String.format("%s\n", "STUDENTS"); 
-                for (User user : VanierSchoolSystem.users) {
-                    if (user.userId.charAt(0) == 'S' || user.userId.charAt(0) == 's')
-                        str += String.format("%s %s", )
-                        for (Course course : ((Student)user).getRegCourses())
-                            str += String.format("%-10s", course.getCourseName());
-                    }
-                displayWindowTA.setText(str); 
-            }
-            // When Teacher Radio Button is picked
-            if (teacherRB.isSelected()) {
-                str += String.format("\t%s\n", "TEACHERS");
-                // Each Vanier Teacher
-                for (Teacher teacher : VanierSchoolSystem.teachers) {
-                    str += String.format("%s\n", teacher);
-                }
-                displayWindowTA.setText(str); 
-            }
-
-            //COURSE INFO - courseName, teacher full name, max students and list of students(id and full name)
-            // When Course Radio Button is picked
-            if (courseRB.isSelected()) {
-                str += String.format("\t%s\n", "COURSES");
-                for (Course course : VanierSchoolSystem.courses) {
-                    str += "\n\n\n";
-                    str += String.format("%-25s : %s\n", "Course", course.getCourseName());
-                    str += String.format( "%-25s : %s %s\n", "Teacher", course.getTeacher().fname,
-                            course.getTeacher().lname);
-                    str += String.format( "%-22s : %s\n", "Max Student", course.getMaxStudent());
-                    str += String.format("\n\t%s\n", "STUDENTS");
-                    for (Student regStudent : course.getRegsStudents()) {
-                        str += String.format("%-25s :  %s\n", "ID", regStudent.userId);
-                        str += String.format("%-20s : %s %s\n", "Name", 
-                                regStudent.fname, regStudent.lname);
+        String str = "";
+        // When Student Radio Button is picked
+        if (studentRB.isSelected()) {
+            str += String.format("%s\n\n", "STUDENTS"); 
+            for (User user : VanierSchoolSystem.users) {
+                if (user.userId.charAt(0) == 's' || user.userId.charAt(0) == 'S') {
+                    str += String.format("%s : %s\n", "ID", user.userId);
+                    str += String.format("%s : %s\n", "Name", user.fname);
+                    str += String.format("\t%s :\n", "Registered Courses");
+                    for (Course course : ((Student)user).getRegCourses()) {
+                        str += String.format("\t%s\n", course.getCourseName());
                     }
                 }
-                displayWindowTA.setText(str);
-            }
+            } 
+            displayWindowTA.setText(str); 
         }
+        
+        // When Teacher Radio Button is picked
+        if (teacherRB.isSelected()) {
+            str += String.format("%s\n\n", "TEACHERS");
+            // Each Vanier Teacher
+            for (Teacher teacher : VanierSchoolSystem.teachers) {
+                str += String.format("%s\n", teacher);
+            }
+            displayWindowTA.setText(str); 
+        }
+
+        //COURSE INFO - courseName, teacher full name, max students and list of students(id and full name)
+        // When Course Radio Button is picked
+        if (courseRB.isSelected()) {
+            str += String.format("%s\n\n", "COURSES");
+            for (Course course : VanierSchoolSystem.courses) {
+                str += String.format("%-25s : %s\n", "Course", course.getCourseName());
+                str += String.format( "%-25s : %s %s\n", "Teacher", course.getTeacher().fname,
+                        course.getTeacher().lname);
+                str += String.format( "%-22s : %s\n", "Max Student", course.getMaxStudent());
+                str += String.format("\n%s :\n", "Course Students");
+                for (Student regStudent : course.getRegsStudents()) {
+                    str += String.format("%-25s :  %s\n", "ID", regStudent.userId);
+                    str += String.format("%-20s : %s %s\n", "Name", 
+                            regStudent.fname, regStudent.lname);
+                    str += "\n\n";
+                }
+            }
+            displayWindowTA.setText(str);
+        }
+        
     }//GEN-LAST:event_displayBActionPerformed
-    
+
     /**
      * When the student radio button is clicked, the information would be removed
      * by calling the cleanInfor() method

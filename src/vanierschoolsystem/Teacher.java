@@ -60,6 +60,20 @@ public class Teacher extends User implements Serializable {
     }
 
     /**
+     * Checks if the teacher teaches that course or not
+     * @param courseName the name of the course
+     * @return True if the teacher teaches that course and false if not
+     */
+    public boolean checkTeacherCourses(String courseName) {
+        for (Course course : teachingCourses) {
+            if (course.getCourseName().equalsIgnoreCase(courseName))
+                return true;
+        
+        }
+        return false;
+    }
+    
+    /**
      * Adds the course in the course
      * @param course
      */
@@ -67,6 +81,25 @@ public class Teacher extends User implements Serializable {
         teachingCourses.add(course);
     }
     
+    /**
+     * 
+     * @param name
+     * @return 
+     */
+    public boolean checkStudentExist(String name) {
+        for (User user : VanierSchoolSystem.users) {
+            if (user.userId.charAt(0) == 's' || user.userId.charAt(0) == 'S') {
+                for (Course studentCourse : ((Student)user).getRegCourses()) {
+                    if (teachingCourses.contains(studentCourse))
+                        return true; 
+                }
+
+            }
+        }
+        return false;
+    }
+    
+
     /**
      * Generates a hash code value for a Teacher object
      *

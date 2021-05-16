@@ -33,10 +33,10 @@ public class Test implements Serializable {
     public static void main(String[] args) {
         //Teacher
         VanierSchoolSystem.initData();
-        System.out.println(VanierSchoolSystem.users);
-//        System.out.println(VanierSchoolSystem.students);
-//        System.out.println(VanierSchoolSystem.teachers);
-        
+//        System.out.println(VanierSchoolSystem.users);
+////        System.out.println(VanierSchoolSystem.students);
+        System.out.println(VanierSchoolSystem.courses);
+//        
         
         
         

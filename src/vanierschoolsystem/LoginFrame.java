@@ -206,17 +206,28 @@ public class LoginFrame extends javax.swing.JFrame implements Serializable{
         
         try {
             for (User existUser : VanierSchoolSystem.users) {
-                if (existUser.userId.equalsIgnoreCase(inputId) && 
+                if (existUser.userId.equals(inputId) && 
                        existUser.password.equals(password)) {
                    // check user id
-                   char type = Character.toLowerCase(existUser.userId.charAt(0));
-
-                    if (type == 's') 
-                        new StudentFrame(existUser).setVisible(true);
-                    if (type == 't') 
-                        new TeacherFrame(existUser).setVisible(true);
-                    if (type == 'a')
-                        new AdminFrame(existUser).setVisible(true);
+                    char type = Character.toLowerCase(existUser.userId.charAt(0));
+                    if (type == 's') {
+                        if (existUser instanceof Student) {
+                            Student student = (Student) existUser;
+                            new StudentFrame(student).setVisible(true);
+                        }
+                    }
+                    if (type == 't') {
+                        if (existUser instanceof Teacher) {
+                            Teacher teacher = (Teacher) existUser;
+                            new TeacherFrame(teacher).setVisible(true);
+                        }
+                    }
+                    if (type == 'a') {
+                        if (existUser instanceof Admin) {
+                            Admin admin = (Admin) existUser;
+                            new AdminFrame(admin).setVisible(true);
+                        }
+                    }
                     userValid = true;
                     this.dispose();
                 }
