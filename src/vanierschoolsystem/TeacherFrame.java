@@ -44,6 +44,7 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
         this.teacher = teacher;
         welcomeL.setText(String.format("Welcome, %s", teacher.fname));
         VanierSchoolSystem.initData();
+        displayTA.setFocusable(false);
     }
 
     /**
@@ -281,12 +282,9 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
                             try {
                                 idx = course.getRegsStudents().indexOf(student);
                                 course.getFinalScores().set(idx, grade);
-                                int studentIdx = student.getRegCourses().indexOf(course);
                             }
-                            catch (Exception e) {
-                                System.out.println(e);
-                                System.out.println(e.getMessage());
-                                System.out.println(e.getStackTrace()); 
+                            catch (ArrayIndexOutOfBoundsException e) {
+                                course.getFinalScores().add(idx, grade);
                             }
                             addStatusMsgL.setForeground(Color.GREEN);
                             addStatusMsgL.setText("The grade has been added successfully");
@@ -314,12 +312,12 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
         for (Course course : VanierSchoolSystem.courses) {
             if (course.getCourseName().equalsIgnoreCase(courseName))
                 for (int i = 0; i < course.getRegsStudents().size(); i++) {
-                    str += String.format("%s", course.getRegsStudents().get(i).fname);
+                    str += String.format("%s :", course.getRegsStudents().get(i).fname);
                     try {
-                        str += String.format("%.1f", course.getFinalScores().get(i));
+                        str += String.format("%.1f\n", course.getFinalScores().get(i));
                     }
                     catch (IndexOutOfBoundsException e) {
-                       str += String.format("%s\n", "null"); 
+                        str += String.format("%s\n", "null"); 
                     }
                 }
         }
@@ -343,17 +341,24 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
             // Step 3 : Create a FileWriter object with try with resources
             try (FileWriter fw = new FileWriter(file, true)) {
                 // Step 4 : Create Header
-                str += String.format("%s,%s,%s", "Student ID", "Student Name", "Final Grade");
+                str += String.format("%s,%s,%s\n", "Student ID", "Student Name", "Final Grade");
                 // Step 5 : Create the body
-                for (Course teachingCourse : teacher.getTeachingCourses()) 
-                    if (teachingCourse.getCourseName().equalsIgnoreCase(inputCourseName)) 
-                        for (Student student : teachingCourse.getRegsStudents()) {
+                for (Course course : VanierSchoolSystem.courses) 
+                    if (course.getCourseName().equalsIgnoreCase(inputCourseName)) 
+                        for (Student student : course.getRegsStudents()) {
                             // Step 6 : Get index of each student
-                            int studentGradeIdx = teachingCourse.getRegsStudents().indexOf(student);
-                            // Step 7 : Get id, name and grade of student
-                            str += String.format("%s,%s,%s,%f\n", student.userId, 
-                                    student.fname, student.lname, 
-                                    teachingCourse.getFinalScores().get(studentGradeIdx));
+                            try {
+                                int studentGradeIdx = course.getRegsStudents().indexOf(student);
+                                // Step 7 : Get id, name and grade of student
+                                str += String.format("%s,%s %s,%f\n", student.userId, 
+                                        student.fname, student.lname, 
+                                        course.getFinalScores().get(studentGradeIdx));
+                            } 
+                            catch (IndexOutOfBoundsException e) {
+                                str += String.format("%s,%s %s,%s", student.userId, 
+                                        student.fname, student.lname, "null");
+                                
+                            }
                         }
                 fw.write(str);
                 exportMsgL.setForeground(Color.GREEN);

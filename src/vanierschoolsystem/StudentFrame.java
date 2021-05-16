@@ -301,7 +301,6 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
             msgL.setForeground(Color.RED);
             msgL.setText("The course does not exist");
         }
-        
     }//GEN-LAST:event_registerBActionPerformed
     
     /**
@@ -313,30 +312,29 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
     }//GEN-LAST:event_displayScoreBActionPerformed
 
     /**
-     * Displays the score of the student user
+     * Displays all the score of the student user
      */
     public void displayScore() {
         String str = "";
-        int idx = 0;
-        
         for (Course schoolCourse : VanierSchoolSystem.courses) {
-            if (schoolCourse.getRegsStudents().contains(student))
-                str += String.format("%s :", schoolCourse.getCourseName());
-                idx = schoolCourse.getRegsStudents().indexOf(student);  
-            
-
-                try {
-                    Double grade = schoolCourse.getFinalScores().get(idx);
-                    str += String.format("%s\n", grade);
+            for (Course studentCourse : student.getRegCourses()) {
+                if (schoolCourse.equals(studentCourse)) {
+                    str += String.format("%s :", schoolCourse.getCourseName());
+                    try {                   
+                        int idx = schoolCourse.getRegsStudents().indexOf(student); 
+                        Double grade = schoolCourse.getFinalScores().get(idx);
+                        str += String.format("%s \n", grade);
+                    }
+                    catch (IndexOutOfBoundsException e) {
+                        str += String.format("%s\n", "null");    
+                    }
+                 
                 }
-                catch (IndexOutOfBoundsException e) {
-                    str += String.format("%s\n", "null");
-                }
+            }
         }
-        
         displayTA.setText(str);
     }
-        
+   
     /**
      * When the logout button is used, a new login frame is created
      * and the current teacher frame will be disposed

@@ -138,8 +138,7 @@ public class VanierSchoolSystem {
                     return String.format("C%03d", courses.size() + 1);
             }
         } catch (NullPointerException e) {
-            System.out.println("Make sure the ArrayList are not empty before"
-                    + "creating an ID");
+            initData();
         }
         return "";
     }
@@ -154,7 +153,6 @@ public class VanierSchoolSystem {
             users.add(student);
         } 
         catch (NullPointerException e) {
-            System.out.println("Problem : Empty ArrayList");
             initData();
         } 
         serializeAllData();
@@ -171,7 +169,6 @@ public class VanierSchoolSystem {
             users.add(teacher);
         } 
         catch (NullPointerException e) {
-            System.out.println("Problem : Empty ArrayList");
             initData();
             
         }
@@ -187,7 +184,6 @@ public class VanierSchoolSystem {
             courses.add(course); 
         } 
         catch (NullPointerException e) {
-            System.out.println("Problem : Empty ArrayList");
             initData();
         }
         serializeAllData();

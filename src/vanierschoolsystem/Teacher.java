@@ -47,6 +47,7 @@ public class Teacher extends User implements Serializable {
         super(fname, lname);
         super.userId = VanierSchoolSystem.generateId('T');
         this.teachingCourses = new ArrayList<>();
+        
     }
 
     /**
