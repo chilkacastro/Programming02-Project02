@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  * A TeacherFrame class
@@ -42,9 +43,11 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
     public TeacherFrame(Teacher teacher) {
         initComponents();
         this.teacher = teacher;
-        welcomeL.setText(String.format("Welcome, %s", teacher.fname));
+        welcomeL.setText(String.format("Welcome, %s %s", teacher.fname, teacher.lname));
         VanierSchoolSystem.initData();
         displayTA.setFocusable(false);
+        ImageIcon teacherImg = new ImageIcon("imgs\\prof.png");
+        imgL.setIcon(teacherImg);
     }
 
     /**
@@ -59,7 +62,7 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
         jLabel2 = new javax.swing.JLabel();
         welcomeL = new javax.swing.JLabel();
         addCourseL = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        addCourseP = new javax.swing.JPanel();
         courseL = new javax.swing.JLabel();
         studentL = new javax.swing.JLabel();
         scoreL = new javax.swing.JLabel();
@@ -75,6 +78,7 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
         displayWindowL = new javax.swing.JLabel();
         exportMsgL = new javax.swing.JLabel();
         logOutB = new javax.swing.JButton();
+        imgL = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -82,27 +86,33 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
         setTitle("Teacher");
 
         welcomeL.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        welcomeL.setForeground(new java.awt.Color(0, 0, 102));
+        welcomeL.setForeground(new java.awt.Color(0, 0, 153));
 
-        addCourseL.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        addCourseL.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         addCourseL.setForeground(new java.awt.Color(0, 0, 0));
         addCourseL.setText("Add a course ");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        addCourseP.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        courseL.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        courseL.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         courseL.setForeground(new java.awt.Color(0, 0, 0));
         courseL.setText("Course :");
 
-        studentL.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        studentL.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         studentL.setForeground(new java.awt.Color(0, 0, 0));
         studentL.setText("Student :");
 
-        scoreL.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        scoreL.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         scoreL.setForeground(new java.awt.Color(0, 0, 0));
         scoreL.setText("Score :");
 
-        addB.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        courseTF.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+
+        scoreTF.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+
+        studentTF.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+
+        addB.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         addB.setForeground(new java.awt.Color(0, 0, 0));
         addB.setText("Add");
         addB.addActionListener(new java.awt.event.ActionListener() {
@@ -114,55 +124,57 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
         addStatusMsgL.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         addStatusMsgL.setForeground(new java.awt.Color(0, 0, 0));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout addCoursePLayout = new javax.swing.GroupLayout(addCourseP);
+        addCourseP.setLayout(addCoursePLayout);
+        addCoursePLayout.setHorizontalGroup(
+            addCoursePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addCoursePLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(addCoursePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addCoursePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(addB)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(addCoursePLayout.createSequentialGroup()
+                            .addGroup(addCoursePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(courseL)
                                 .addComponent(scoreL)
                                 .addComponent(studentL))
                             .addGap(58, 58, 58)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(addCoursePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(studentTF, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(scoreTF, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(courseTF, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(addStatusMsgL, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        addCoursePLayout.setVerticalGroup(
+            addCoursePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addCoursePLayout.createSequentialGroup()
                 .addGap(74, 74, 74)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addCoursePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(courseL)
-                    .addComponent(courseTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(courseTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addCoursePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(studentL)
-                    .addComponent(studentTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(studentTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addCoursePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(scoreL)
-                    .addComponent(scoreTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                    .addComponent(scoreTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addComponent(addB)
-                .addGap(18, 18, 18)
-                .addComponent(addStatusMsgL, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(addStatusMsgL, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
         displayTA.setColumns(20);
+        displayTA.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        displayTA.setForeground(new java.awt.Color(0, 0, 102));
         displayTA.setRows(5);
         displayP.setViewportView(displayTA);
 
-        displayB.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        displayB.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         displayB.setForeground(new java.awt.Color(0, 0, 0));
         displayB.setText("Display");
         displayB.addActionListener(new java.awt.event.ActionListener() {
@@ -171,7 +183,7 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
             }
         });
 
-        exportB.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        exportB.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         exportB.setForeground(new java.awt.Color(0, 0, 0));
         exportB.setText("Export");
         exportB.addActionListener(new java.awt.event.ActionListener() {
@@ -180,11 +192,14 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
             }
         });
 
-        displayWindowL.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        displayWindowL.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         displayWindowL.setForeground(new java.awt.Color(0, 0, 0));
         displayWindowL.setText("Display");
 
-        logOutB.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        exportMsgL.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        exportMsgL.setForeground(new java.awt.Color(0, 0, 0));
+
+        logOutB.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         logOutB.setForeground(new java.awt.Color(0, 0, 0));
         logOutB.setText("Log Out");
         logOutB.addActionListener(new java.awt.event.ActionListener() {
@@ -197,57 +212,68 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(welcomeL, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addCourseL)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addCourseP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addCourseL))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(displayWindowL)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(logOutB)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(displayP, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(displayB)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(exportB)))))))
-                .addGap(59, 59, 59))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(exportMsgL, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(exportMsgL, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(displayP, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(displayB)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(exportB))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(imgL, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(logOutB))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(welcomeL, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(56, 56, 56))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(welcomeL, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(logOutB))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addCourseL)
-                    .addComponent(displayWindowL))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(logOutB)
+                        .addGap(92, 92, 92)
+                        .addComponent(displayWindowL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(displayP, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
+                        .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(displayB)
-                            .addComponent(exportB)))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                            .addComponent(exportB)
+                            .addComponent(displayB))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(imgL, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 35, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(welcomeL, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(addCourseL)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addCourseP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)))
                 .addComponent(exportMsgL, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(56, 56, 56))
         );
 
         pack();
@@ -283,36 +309,39 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
                                 idx = course.getRegsStudents().indexOf(student);
                                 course.getFinalScores().set(idx, grade);
                             }
-                            catch (ArrayIndexOutOfBoundsException e) {
+                            catch (IndexOutOfBoundsException e) {
                                 course.getFinalScores().add(idx, grade);
                             }
                             addStatusMsgL.setForeground(Color.GREEN);
-                            addStatusMsgL.setText("The grade has been added successfully");
+                            addStatusMsgL.setText("The score has been added successfully");
                             validName = true;
                             VanierSchoolSystem.serializeAllData();
+                            studentTF.setText("");
+                            scoreTF.setText("");
                             break;
                         }
-                    }
                     if (!validName) {
                         addStatusMsgL.setForeground(Color.RED);
                         addStatusMsgL.setText("The student has not registered this course");
+                    }
                 }
-            }
-        } 
+            } 
+        }
     }//GEN-LAST:event_addBActionPerformed
-
+    
     /**
      * Displays the grades of all students for a specific course
      * @param evt the event
      */
     private void displayBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayBActionPerformed
+        addStatusMsgL.setText("");
         String str = "";
         String courseName = courseTF.getText();
         
         for (Course course : VanierSchoolSystem.courses) {
             if (course.getCourseName().equalsIgnoreCase(courseName))
                 for (int i = 0; i < course.getRegsStudents().size(); i++) {
-                    str += String.format("%s :", course.getRegsStudents().get(i).fname);
+                    str += String.format("%s : ", course.getRegsStudents().get(i).fname);
                     try {
                         str += String.format("%.1f\n", course.getFinalScores().get(i));
                     }
@@ -330,10 +359,17 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
      */
     private void exportBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBActionPerformed
         String inputCourseName = courseTF.getText();
-        // Step 1 : Indicate the path
-        if (inputCourseName.length() > 0) {
-            String path = String.format("data\\%s.csv", inputCourseName);
+        boolean courseExist = false;
+        for (Course course : VanierSchoolSystem.courses) 
+            if (course.getCourseName().equalsIgnoreCase(inputCourseName)) {
+                courseExist = true;
+                break;
+            }
         
+        if (courseExist) {
+            // Step 1 : Indicate the path
+            String path = String.format("data\\%s.csv", inputCourseName);
+
             // Step 2 : Create a file object
             File file = new File(path);
             // Create a String
@@ -357,7 +393,6 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
                             catch (IndexOutOfBoundsException e) {
                                 str += String.format("%s,%s %s,%s", student.userId, 
                                         student.fname, student.lname, "null");
-                                
                             }
                         }
                 fw.write(str);
@@ -384,10 +419,11 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
         loginFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logOutBActionPerformed
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addB;
     private javax.swing.JLabel addCourseL;
+    private javax.swing.JPanel addCourseP;
     private javax.swing.JLabel addStatusMsgL;
     private javax.swing.JLabel courseL;
     private javax.swing.JTextField courseTF;
@@ -397,8 +433,8 @@ public class TeacherFrame extends javax.swing.JFrame implements Serializable {
     private javax.swing.JLabel displayWindowL;
     private javax.swing.JButton exportB;
     private javax.swing.JLabel exportMsgL;
+    private javax.swing.JLabel imgL;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logOutB;
     private javax.swing.JLabel scoreL;
     private javax.swing.JTextField scoreTF;

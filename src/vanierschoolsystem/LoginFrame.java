@@ -35,7 +35,7 @@ import javax.swing.ImageIcon;
 public class LoginFrame extends javax.swing.JFrame implements Serializable{
 
     /**
-     * Creates new form LoginFrame
+     * LoginFrame constructor
      */
     public LoginFrame() {
         initComponents();
@@ -76,6 +76,7 @@ public class LoginFrame extends javax.swing.JFrame implements Serializable{
         idL.setForeground(new java.awt.Color(0, 0, 0));
         idL.setText("ID :");
 
+        passwordTF.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         passwordTF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 passwordTFKeyReleased(evt);
@@ -85,6 +86,8 @@ public class LoginFrame extends javax.swing.JFrame implements Serializable{
         passwordL.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         passwordL.setForeground(new java.awt.Color(0, 0, 0));
         passwordL.setText("Password : ");
+
+        idTF.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
 
         submitB.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         submitB.setForeground(new java.awt.Color(0, 0, 0));
@@ -107,16 +110,16 @@ public class LoginFrame extends javax.swing.JFrame implements Serializable{
                 .addGap(29, 29, 29))
             .addGroup(loginPLayout.createSequentialGroup()
                 .addGap(133, 133, 133)
-                .addGroup(loginPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(loginPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(loginPLayout.createSequentialGroup()
                         .addComponent(passwordL)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(passwordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(loginPLayout.createSequentialGroup()
                         .addComponent(idL)
-                        .addGap(85, 85, 85)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(idTF, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
         loginPLayout.setVerticalGroup(
             loginPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +189,7 @@ public class LoginFrame extends javax.swing.JFrame implements Serializable{
 
     /**
      * When enter key is pressed and the userID and password text field
-     * are not empty, user can activate the login button without clicking it
+     * are not empty, user can activate the login button witH just the ENTER key
      * @param evt the event 
      */
     private void passwordTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTFKeyReleased
@@ -206,35 +209,31 @@ public class LoginFrame extends javax.swing.JFrame implements Serializable{
         
         try {
             for (User existUser : VanierSchoolSystem.users) {
-                if (existUser.userId.equals(inputId) && 
-                       existUser.password.equals(password)) {
-                   // check user id
+                if (existUser.userId.equals(inputId) && existUser.password.equals(password)) {
                     char type = Character.toLowerCase(existUser.userId.charAt(0));
-                    if (type == 's') {
+                    if (type == 's') // Student
                         if (existUser instanceof Student) {
                             Student student = (Student) existUser;
                             new StudentFrame(student).setVisible(true);
                         }
-                    }
-                    if (type == 't') {
+                    
+                    if (type == 't')  // Teacher
                         if (existUser instanceof Teacher) {
                             Teacher teacher = (Teacher) existUser;
                             new TeacherFrame(teacher).setVisible(true);
                         }
-                    }
-                    if (type == 'a') {
+                    
+                    if (type == 'a') // Admin
                         if (existUser instanceof Admin) {
                             Admin admin = (Admin) existUser;
                             new AdminFrame(admin).setVisible(true);
                         }
-                    }
                     userValid = true;
                     this.dispose();
                 }
             }    
         }   
-        catch (Exception e) {
-            System.out.println(e);
+        catch (NullPointerException e) {
             System.exit(0);
         }
             if (!userValid) {

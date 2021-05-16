@@ -62,7 +62,7 @@ public class VanierSchoolSystem {
         // Users
         if (usersFile.isFile())
             users = (ArrayList<User>) deserializeData(usersPath);
-        else 
+        else  // A001 pass : 1234
             users = new ArrayList(Arrays.asList(admin));     
         
         // Students
@@ -137,7 +137,8 @@ public class VanierSchoolSystem {
                 default :  // courses
                     return String.format("C%03d", courses.size() + 1);
             }
-        } catch (NullPointerException e) {
+        } 
+        catch (NullPointerException e) {
             initData();
         }
         return "";
@@ -156,7 +157,6 @@ public class VanierSchoolSystem {
             initData();
         } 
         serializeAllData();
-        
     }
     
     /**
@@ -170,7 +170,6 @@ public class VanierSchoolSystem {
         } 
         catch (NullPointerException e) {
             initData();
-            
         }
         serializeAllData();
     }

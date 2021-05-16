@@ -26,6 +26,7 @@ package vanierschoolsystem;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  * A StudentFrame class
@@ -36,13 +37,15 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
         
     /**
      * StudentFrame constructor with a user data member
-     * @param user the user
+     * @param student the student user
      */
     public StudentFrame(Student student) {
         initComponents();
         displayTA.setFocusable(false);
         this.student = student;
-        welcomeL.setText(String.format("Welcome, %s", student.fname));
+        welcomeL.setText(String.format("Welcome, %s %s", student.fname, student.lname));
+        ImageIcon studentImg = new ImageIcon("imgs\\student.png");
+        imgL.setIcon(studentImg);
     }
 
     /**
@@ -67,6 +70,7 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
         displayTA = new javax.swing.JTextArea();
         displayScoreB = new javax.swing.JButton();
         logOutB = new javax.swing.JButton();
+        imgL = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student");
@@ -80,18 +84,13 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
         courseL.setForeground(new java.awt.Color(0, 0, 0));
         courseL.setText("Course :");
 
-        courseTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                courseTFActionPerformed(evt);
-            }
-        });
         courseTF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 courseTFKeyReleased(evt);
             }
         });
 
-        courseInforB.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        courseInforB.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         courseInforB.setForeground(new java.awt.Color(0, 0, 0));
         courseInforB.setText("Check Course Infor");
         courseInforB.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +99,7 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
             }
         });
 
-        registerB.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        registerB.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         registerB.setForeground(new java.awt.Color(0, 0, 0));
         registerB.setText("Register");
         registerB.addActionListener(new java.awt.event.ActionListener() {
@@ -142,11 +141,11 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
                 .addGap(16, 16, 16))
         );
 
-        registerCourseL.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        registerCourseL.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         registerCourseL.setForeground(new java.awt.Color(0, 0, 0));
         registerCourseL.setText("Register a course");
 
-        displayL.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        displayL.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         displayL.setForeground(new java.awt.Color(0, 0, 0));
         displayL.setText("Display");
 
@@ -155,7 +154,7 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
         displayTA.setRows(5);
         jScrollPane1.setViewportView(displayTA);
 
-        displayScoreB.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        displayScoreB.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         displayScoreB.setForeground(new java.awt.Color(0, 0, 0));
         displayScoreB.setText("Display Score");
         displayScoreB.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +163,7 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
             }
         });
 
-        logOutB.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        logOutB.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         logOutB.setForeground(new java.awt.Color(0, 0, 0));
         logOutB.setText("Log Out");
         logOutB.setFocusable(false);
@@ -181,30 +180,43 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(37, 37, 37)
+                        .addComponent(imgL, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(welcomeL, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logOutB))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(registerCourseL, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(welcomeL, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(registerCourseP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(displayL)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(displayScoreB)
-                            .addComponent(logOutB))))
-                .addGap(23, 23, 23))
+                        .addComponent(displayScoreB)))
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(welcomeL, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(logOutB))
-                .addGap(30, 30, 30)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(12, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(logOutB)
+                                .addGap(93, 93, 93))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(imgL, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(welcomeL, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(registerCourseL)
                     .addComponent(displayL))
@@ -215,7 +227,7 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(displayScoreB)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(58, 58, 58))
         );
 
         pack();
@@ -308,6 +320,7 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
      * @param evt the event
      */
     private void displayScoreBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayScoreBActionPerformed
+        msgL.setText("");
         displayScore();
     }//GEN-LAST:event_displayScoreBActionPerformed
 
@@ -319,7 +332,7 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
         for (Course schoolCourse : VanierSchoolSystem.courses) {
             for (Course studentCourse : student.getRegCourses()) {
                 if (schoolCourse.equals(studentCourse)) {
-                    str += String.format("%s :", schoolCourse.getCourseName());
+                    str += String.format("%s : ", schoolCourse.getCourseName());
                     try {                   
                         int idx = schoolCourse.getRegsStudents().indexOf(student); 
                         Double grade = schoolCourse.getFinalScores().get(idx);
@@ -328,7 +341,6 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
                     catch (IndexOutOfBoundsException e) {
                         str += String.format("%s\n", "null");    
                     }
-                 
                 }
             }
         }
@@ -347,23 +359,14 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
     }//GEN-LAST:event_logOutBActionPerformed
 
     /**
-     * When the course text field is clicked, the previous written words in the
-     * text field will be removed.
-     * @param evt the event
-     */
-    private void courseTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseTFActionPerformed
-        cleanInfor();
-    }//GEN-LAST:event_courseTFActionPerformed
-
-    /**
      * When the course text field is empty, there is no visible previous information on 
-     * display. But if the course
+     * display. But if there is an input in the course text field and the ENTER is pressed
+     * it will show the course information
      * @param evt the event
      */
     private void courseTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_courseTFKeyReleased
         if (courseTF.isFocusable()) {
-            if (evt.getKeyCode() == KeyEvent.VK_ENTER && displayTA.getText().length() == 0
-                    && courseTF.getText().length() > 0) {
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER && courseTF.getText().length() > 0) {
                 checkCourseInfo();
             }
             if (courseTF.getText().length() == 0) 
@@ -387,6 +390,7 @@ public class StudentFrame extends javax.swing.JFrame implements Serializable{
     private javax.swing.JLabel displayL;
     private javax.swing.JButton displayScoreB;
     private javax.swing.JTextArea displayTA;
+    private javax.swing.JLabel imgL;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logOutB;
     private javax.swing.JLabel msgL;

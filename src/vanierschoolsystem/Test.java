@@ -31,52 +31,22 @@ import java.io.Serializable;
 // */
 public class Test implements Serializable {
     public static void main(String[] args) {
-        //Teacher
         VanierSchoolSystem.initData();
-//        System.out.println(VanierSchoolSystem.users);
-////        System.out.println(VanierSchoolSystem.students);
+        System.out.println("\t\tUSERS");
+        System.out.println(VanierSchoolSystem.users);
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("\t\tSTUDENTS");
+        System.out.println(VanierSchoolSystem.students);
+        System.out.println("");
+        System.out.println("");
+        System.out.println("\t\tCOURSES");
         System.out.println(VanierSchoolSystem.courses);
-//        
-        
-        
-        
-//        System.out.println(VanierSchoolSystem.courses);
-//        System.out.println(VanierSchoolSystem.students);
-////////
-//        String str2 = "\tCOURSES\n";
-//        for (Course courses : VanierSchoolSystem.courses) {
-//            str2 += String.format("%s", courses);
-//        }
-//        System.out.println(str2);
-//        System.out.println("");
-//        System.out.println("");
-//
-//        String str3 = "\tTEACHERS\n";
-//        for (Teacher teacher : VanierSchoolSystem.teachers) {
-//            str3 += String.format("%s", teacher);
-//            for (Course course : teacher.getTeachingCourses()) {
-//                str3 += String.format("%s", course.getCourseName());
-//                    for (Student studentCourse : course.getRegsStudents()) {
-//                        str3 += String.format("%s", studentCourse);
-//                        
-//                    }
-//            }
-//        }
-//            
-//        System.out.println(str3);
-//        System.out.println("");
-//        System.out.println("");
-//
-////
-//        String str = "\tSTUDENTS\n";
-//
-//        
-//        for (Student student : VanierSchoolSystem.students) 
-//            str += String.format("%s", student);
-//        
-//        System.out.println(str);
-//        System.out.println("");
-//        System.out.println("");
-
-    }
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("\t\tTEACHERS");
+        System.out.println(VanierSchoolSystem.teachers);
+    }   
 }

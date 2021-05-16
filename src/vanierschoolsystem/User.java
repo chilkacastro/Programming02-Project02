@@ -27,7 +27,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- *
+ * A User Class
  * @author Chilka Castro
  */
 public abstract class User implements Serializable {
@@ -111,7 +111,7 @@ public abstract class User implements Serializable {
         String str = "";
 
         str += String.format("%-20s : %s\n", "UserID", userId);
-        str += String.format("%-20s : %s %s\n", "Name", toCamelCase(fname), toCamelCase(lname));
+        str += String.format("%-20s : %s %s\n", "Name", fname, lname);
 
         return str;
     }
@@ -147,5 +147,4 @@ public abstract class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
 }

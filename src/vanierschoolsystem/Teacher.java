@@ -26,15 +26,12 @@ package vanierschoolsystem;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A Teacher Class
- *
  * @author Chilka Castro
  */
 public class Teacher extends User implements Serializable {
-
     private List<Course> teachingCourses;
 
     /**
@@ -47,12 +44,10 @@ public class Teacher extends User implements Serializable {
         super(fname, lname);
         super.userId = VanierSchoolSystem.generateId('T');
         this.teachingCourses = new ArrayList<>();
-        
     }
 
     /**
      * Copy constructor
-     *
      * @param teacher the teacher to copy
      */
     public Teacher(Teacher teacher) {
@@ -66,84 +61,23 @@ public class Teacher extends User implements Serializable {
      * @return True if the teacher teaches that course and false if not
      */
     public boolean checkTeacherCourses(String courseName) {
-        for (Course course : teachingCourses) {
+        for (Course course : teachingCourses) 
             if (course.getCourseName().equalsIgnoreCase(courseName))
                 return true;
         
-        }
         return false;
     }
     
     /**
-     * Adds the course in the course
-     * @param course
+     * Adds the course in the teaching courses list
+     * @param course the course to add to the teaching course
      */
     public void updateCourse(Course course) {
         teachingCourses.add(course);
     }
     
     /**
-     * 
-     * @param name
-     * @return 
-     */
-    public boolean checkStudentExist(String name) {
-        for (User user : VanierSchoolSystem.users) {
-            if (user.userId.charAt(0) == 's' || user.userId.charAt(0) == 'S') {
-                for (Course studentCourse : ((Student)user).getRegCourses()) {
-                    if (teachingCourses.contains(studentCourse))
-                        return true; 
-                }
-
-            }
-        }
-        return false;
-    }
-    
-
-    /**
-     * Generates a hash code value for a Teacher object
-     *
-     * @return a hash code value
-     */
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 23 * super.hashCode();
-        hash = 23 * hash + Objects.hashCode(this.teachingCourses);
-        return hash;
-    }
-
-    /**
-     * Checks if two objects are the same or not
-     *
-     * @param obj the object to be compared with
-     * @return True if both are the same and False if not
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Teacher other = (Teacher) obj;
-        if (!super.equals(other)) {
-            return false;
-        }
-        if (!Objects.equals(this.teachingCourses, other.teachingCourses)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Creates a String that represents a Teacher
-     *
      * @return a String that represents a Teacher
      */
     @Override
@@ -152,10 +86,9 @@ public class Teacher extends User implements Serializable {
 
         str += super.toString();
         str += String.format("%s : \n", "Teaching Courses");
-        for (Course teachCourse : teachingCourses) {
+        for (Course teachCourse : teachingCourses) 
             str += String.format("\t%s\n", teachCourse.getCourseName());
-        }
-
+        
         return str;
     }
 

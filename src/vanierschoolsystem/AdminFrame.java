@@ -32,7 +32,7 @@ import javax.swing.ImageIcon;
  * An AdminFrame Class
  * @author Chilka Castro
  */
-public class AdminFrame extends javax.swing.JFrame implements Serializable{
+public class AdminFrame extends javax.swing.JFrame implements Serializable {
     private Admin admin;
     
     /**
@@ -43,7 +43,7 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
         this.admin = admin;
         ImageIcon adminImg = new ImageIcon("imgs\\admin.png");
         imgL.setIcon(adminImg);
-        welcomeL.setText(String.format("Welcome, %s", admin.fname));
+        welcomeL.setText(String.format("Welcome, %s %s", admin.fname, admin.lname));
         teacherTF.setVisible(false);        
         teacherL.setVisible(false);
         displayWindowTA.setFocusable(false);
@@ -81,11 +81,6 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin");
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         welcomeL.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         welcomeL.setForeground(new java.awt.Color(0, 0, 102));
@@ -127,6 +122,7 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
         nameL.setForeground(new java.awt.Color(0, 0, 0));
         nameL.setText("Name:");
 
+        nameTF.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         nameTF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 nameTFKeyReleased(evt);
@@ -137,6 +133,8 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
         teacherL.setForeground(new java.awt.Color(0, 0, 0));
         teacherL.setText("Teacher:");
 
+        teacherTF.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+
         addB.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         addB.setForeground(new java.awt.Color(0, 0, 0));
         addB.setText("Add");
@@ -146,58 +144,65 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
             }
         });
 
+        addMsgL.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
+
         javax.swing.GroupLayout choicePLayout = new javax.swing.GroupLayout(choiceP);
         choiceP.setLayout(choicePLayout);
         choicePLayout.setHorizontalGroup(
             choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(choicePLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, choicePLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(addMsgL, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                     .addGroup(choicePLayout.createSequentialGroup()
-                        .addComponent(addMsgL, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addB, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(choicePLayout.createSequentialGroup()
                         .addGroup(choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(studentRB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(teacherRB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(courseRB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                         .addGroup(choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(choicePLayout.createSequentialGroup()
-                                    .addComponent(nameL, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(nameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(choicePLayout.createSequentialGroup()
-                                    .addComponent(teacherL, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(teacherTF, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(addB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))))
+                            .addGroup(choicePLayout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(teacherL, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(choicePLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nameL, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameTF)
+                            .addComponent(teacherTF))))
+                .addGap(18, 18, 18))
         );
         choicePLayout.setVerticalGroup(
             choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(choicePLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(17, 17, 17)
                 .addGroup(choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(studentRB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameL, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(teacherRB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(teacherL, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(teacherTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(courseRB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(addB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(choicePLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(teacherRB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(courseRB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(choicePLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(choicePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(teacherTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(teacherL, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(addB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(addMsgL, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
 
         displayWindowTA.setColumns(20);
+        displayWindowTA.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         displayWindowTA.setForeground(new java.awt.Color(0, 51, 102));
         displayWindowTA.setRows(5);
         jScrollPane1.setViewportView(displayWindowTA);
@@ -232,22 +237,25 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(displayB, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(displayB, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(welcomeL, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(addElementsL, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(imgL, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(choiceP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(displayWindowL, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(logOutB))
-                .addContainerGap(62, Short.MAX_VALUE))
+                            .addComponent(choiceP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(welcomeL, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(displayWindowL, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(logOutB))))
+                .addGap(54, 54, 54))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,16 +268,18 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addElementsL, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(displayWindowL, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
                         .addComponent(choiceP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(89, 89, 89)
+                        .addGap(46, 46, 46)
                         .addComponent(imgL, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(displayB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24)
+                .addComponent(displayB, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -283,9 +293,9 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
         addMsgL.setForeground(Color.BLACK);
         addElement();
     }//GEN-LAST:event_addBActionPerformed
-   
+    
     /**
-     * Adds a student, teacher or a course
+     * Add a teacher, a course, a student in the school system
      */
     public void addElement() {
         if (studentRB.isSelected()) 
@@ -297,7 +307,7 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
         else 
             addCourse();
     }
- 
+
     /**
      * Adds a teacher in the school system
      */
@@ -314,7 +324,7 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
         } 
         catch (StringIndexOutOfBoundsException e) {
             addMsgL.setForeground(Color.RED);
-            addMsgL.setText("Adding student failed");
+            addMsgL.setText("Adding teacher failed");
         }
         addMsgL.setForeground(Color.GREEN);
         addMsgL.setText("Teacher successfully added");
@@ -325,11 +335,12 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
      * Adds a course to the system as long as the teacher of that course exist
      */
     public void addCourse() {
-        setVisibility();
+        setVisibility();                            // shows teacher text field
         String input = nameTF.getText();
         String teacherUserId = teacherTF.getText();
         boolean teacherValid = false;
-        // Step 1 : Check if teacher exist
+        
+        // Check if teacher exist
         for (Teacher existTeacher : VanierSchoolSystem.teachers) 
             if (existTeacher.userId.equalsIgnoreCase(teacherUserId)) {
                 teacherValid = true;
@@ -337,16 +348,15 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
                 course = new Course(input, existTeacher);
                 // The teacher also gets that course in his/her list of courses
                 existTeacher.updateCourse(course);
-                // Adds the specific course to the Vanier School System
-                VanierSchoolSystem.addCourse(course);
+                // Adds and serializes the new course to the Vanier School System
+                VanierSchoolSystem.addCourse(course); 
                 addMsgL.setForeground(Color.GREEN);
                 addMsgL.setText("Course successfully added");
             }        
         if (!teacherValid) {
             addMsgL.setForeground(Color.RED);
             addMsgL.setText("The teacher does not exist.");
-        }  
-           
+        }    
     }
 
     /**
@@ -371,7 +381,6 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
         addMsgL.setForeground(Color.GREEN);
         addMsgL.setText("Student successfully added");
         setVisibility();
-    
     }
     
     /**
@@ -380,14 +389,15 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
      * @param evt the event
      */
     private void displayBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayBActionPerformed
+        addMsgL.setText("");
         String str = "";
-        // When Student Radio Button is picked
+        // STUDENT DISPLAY
         if (studentRB.isSelected()) {
             str += String.format("%s\n\n", "STUDENTS"); 
             for (User user : VanierSchoolSystem.users) {
                 if (user.userId.charAt(0) == 's' || user.userId.charAt(0) == 'S') {
                     str += String.format("%s : %s\n", "ID", user.userId);
-                    str += String.format("%s : %s\n", "Name", user.fname);
+                    str += String.format("%s : %s %s\n", "Name", user.fname, user.lname);
                     str += String.format("\t%s :\n", "Registered Courses");
                     for (Course course : ((Student)user).getRegCourses()) {
                         str += String.format("\t%s\n", course.getCourseName());
@@ -397,7 +407,7 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
             displayWindowTA.setText(str); 
         }
         
-        // When Teacher Radio Button is picked
+        // TEACHER DISPLAY
         if (teacherRB.isSelected()) {
             str += String.format("%s\n\n", "TEACHERS");
             // Each Vanier Teacher
@@ -407,8 +417,7 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
             displayWindowTA.setText(str); 
         }
 
-        //COURSE INFO - courseName, teacher full name, max students and list of students(id and full name)
-        // When Course Radio Button is picked
+        //COURSE DISPLAY
         if (courseRB.isSelected()) {
             str += String.format("%s\n\n", "COURSES");
             for (Course course : VanierSchoolSystem.courses) {
@@ -426,7 +435,6 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
             }
             displayWindowTA.setText(str);
         }
-        
     }//GEN-LAST:event_displayBActionPerformed
 
     /**
@@ -457,20 +465,14 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
     private void courseRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseRBActionPerformed
         if (courseRB.isSelected() && nameTF.isFocusable() && nameTF.getText().length() == 0)
             cleanInfor();
+        
         setVisibility();
         cleanInfor();
     }//GEN-LAST:event_courseRBActionPerformed
 
     /**
-     * 
-     * @param evt the event
-     */
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }//GEN-LAST:event_formWindowClosed
-
-    /**
-     *  
+     * Allows ENTER key to add teacher, course, student instead of clicking 
+     * the ADD button
      * @param evt the event 
      */
     private void nameTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameTFKeyReleased
@@ -486,8 +488,9 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
     }//GEN-LAST:event_nameTFKeyReleased
 
     /**
-     * 
-     * @param evt 
+     * When the logout button is used, a new loginFrame will be opened while
+     * disposing the current frame
+     * @param evt the event
      */
     private void logOutBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutBActionPerformed
         LoginFrame loginFrame = new LoginFrame();
@@ -518,7 +521,6 @@ public class AdminFrame extends javax.swing.JFrame implements Serializable{
             teacherL.setVisible(true);
             teacherTF.setVisible(true);
         }
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
